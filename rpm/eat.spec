@@ -26,8 +26,11 @@ Settings for host side of test automation. Includes ssh-key to enable passwordle
 %package device
 Summary: Device side enablers for test automation
 Requires: openssh-server
+Requires: oneshot
 Requires(pre): coreutils
 Conflicts: eat-host
+
+%{_oneshot_requires_post}
 
 %description device
 Settings for device side of test automation. Includes ssh-key for passwordless root logins
@@ -121,8 +124,20 @@ fi
 EOF
 chmod a+x %{buildroot}/usr/bin/eat-run-command
 
+install -d %{buildroot}/%{_oneshotdir}
+cat > %{buildroot}/%{_oneshotdir}/10-eat-device-key << EOF
+#!/bin/sh
+exec /usr/bin/eat-add-device-key
+EOF
+chmod a+x %{buildroot}/%{_oneshotdir}/10-eat-device-key
+
 %clean
 rm -rf %{buildroot}
+
+%post
+if [ "$1" -eq 1 ]; then
+    %{_bindir}/add-oneshot --user 10-eat-device-key
+fi
 
 %files host
 %defattr(-,root,root,-)
@@ -136,6 +151,7 @@ rm -rf %{buildroot}
 %files device
 %defattr(-,root,root,-)
 /etc/xdg/autostart/eat-store-env.desktop
+%{_oneshotdir}/10-eat-device-key
 %{_libdir}/systemd/user/eat-store-env.service
 %{_libdir}/systemd/user/nemo-mobile-session.target.wants/eat-store-env.service
 /var/opt/eat/sshkey-device
