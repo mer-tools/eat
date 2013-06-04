@@ -1,0 +1,46 @@
+eat (0.2.0) unstable; urgency=low
+
+    * BMC#13406 - MeeGo test-env package required for test-automation
+
+ -- Timo Härkönen <timo.harkonen@digia.com> Tue, 28 Jun 2011 13:06:00 +0300
+
+eat (0.1.5) unstable; urgency=low
+
+  * BMC#13052 - Supports for multiple DUTs with different IPs
+  * BMC#10047 - Correct environment when executing tests (by Timo Mäkimattila)
+  * BMC#12756 - install-eat-key gives incorrect instructions
+  * BMC#12757 - remove-eat-key does not work after first run of install-eat-key
+
+ -- Timo Härkönen <timo.harkonen@digia.com> Fri, 14 Jan 2011 09:47:00 +0300
+
+eat (0.1.4) unstable; urgency=low
+
+  * BMC#12105 - Added public ssh key to host
+  * Changed ssh config to be specific to 192.168.2.15 host
+
+ -- Timo Härkönen <timo.harkonen@digia.com> Fri, 14 Jan 2011 09:47:00 +0300
+
+eat (0.1.3) unstable; urgency=low
+
+  * Added utility scripts for adding/removing ssh-keys for users
+
+ -- Timo Härkönen <timo.harkonen@digia.com> Tue, 28 Dec 2010 16:59:00 +0300
+
+eat (0.1.0) unstable; urgency=low
+
+  * Renamed host side syslog file to testrun.log
+
+ -- Timo Härkönen <timo.harkonen@digia.com>  Wed, 13 Oct 2010 15:45:00 +0300
+
+eat (0.0.8) unstable; urgency=low
+
+  * Disabled scrict host key check
+  * Fixed selftest starting too early
+
+ -- Timo Härkönen <timo.harkonen@digia.com>  Fri, 8 Oct 2010 13:30:00 +0300
+
+eat (0.0.7) unstable; urgency=low
+
+  * Initial debian packaging
+
+ -- Timo Härkönen <timo.harkonen@digia.com>  Wed, 6 Oct 2010 15:03:00 +0300

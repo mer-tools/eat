@@ -1,0 +1,74 @@
+#!/bin/sh
+# Init script for eat
+# Sets up eat syslog host configuration
+#
+# chkconfig: 345 99 01
+# description: Configure host for automated testing
+
+case "$1" in
+	start)
+		echo "enabling eat host configuration"
+		if [ -e /etc/sysconfig/sysklogd ]
+		then
+        		# backup the originals
+			if [ -e /etc/sysconfig/sysklogd.back ]; then
+				echo "eat syslog configuration already set"
+				exit 1
+			fi
+        		cp /etc/sysconfig/sysklogd /etc/sysconfig/sysklogd.back
+        		cp /etc/syslog.conf /etc/syslog.conf.back
+        		echo "# Added by eat" >> /etc/sysconfig/sysklogd
+        		echo "SYSLOGD_OPTIONS=\"-m 0 -r\"" >> /etc/sysconfig/sysklogd
+			echo "SYSLOG_UMASK=022" >> /etc/sysconfig/sysklogd
+        		# Print received syslog messages to /var/log/eat.log
+        		echo "# Added by eat" >> /etc/syslog.conf
+        		echo ":fromhost-ip, isequal, "192.2.168.15"                     /var/log/testrun.log"\
+			>> /etc/syslog.conf
+        		/etc/init.d/sysklogd restart
+		elif [ -e /etc/sysconfig/rsyslog ]
+		then
+			if [ -e /etc/rsyslog.conf.back ]; then
+				echo "eat syslog configuration already set"
+				exit 1
+			fi
+        		cp /etc/rsyslog.conf /etc/rsyslog.conf.back
+        		sed -e 's/#$ModLoad imudp.so/$ModLoad imudp.so/' \
+        		-e 's/#$UDPServerRun.*/$UDPServerRun 514\n$UDPServerAddress 192.168.2.15/' \
+        		/etc/rsyslog.conf > /etc/rsyslog.conf.tmp
+        		mv /etc/rsyslog.conf.tmp /etc/rsyslog.conf
+        		/etc/init.d/rsyslog restart
+		fi
+		;;
+	status)
+		# nada
+		;;
+	stop)
+		echo "disabling eat-host configuration"
+		if [ -e /etc/rsyslog.conf.back ]
+		then
+        		mv /etc/rsyslog.conf.back /etc/rsyslog.conf
+		fi
+
+		if [ -e /etc/syslog.conf.back ]
+		then
+       			mv /etc/syslog.conf.back /etc/syslog.conf
+		fi
+
+		if [ -e /etc/sysconfig/sysklogd.back ]
+		then
+        		mv /etc/sysconfig/sysklogd.back /etc/sysconfig/sysklogd
+		fi
+		;;
+	restart)
+		echo "Restart not implemented"
+		;;
+	reload)
+		echo "Reload not implemented"
+		;;
+	*)
+		echo "Usage $0 {start|stop}"
+		exit 1
+		;;
+esac
+
+exit $?

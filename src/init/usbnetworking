@@ -1,0 +1,49 @@
+#!/bin/sh
+# USB-networking startup script
+#
+# chkconfig: 2345 51 01
+# description: If ethernet not present, try to setup usb networking 
+_no_ethernet()
+{
+    ifconfig eth0
+    if [ $? -ne 0 ]; then
+	return 0
+    fi
+    return 1
+}
+
+_no_usb()
+{
+    ifconfig usb0 | grep 192.168.2.15
+    if [ $? -ne 0 ]; then
+	return 0
+    fi
+    return 1
+}
+
+case "$1" in
+	start)
+	        if _no_ethernet && _no_usb; then
+		    modprobe g_ether
+		    ifconfig usb0 192.168.2.15 up
+		fi
+		;;
+	stop)
+		echo stop not implemented
+		;;
+	restart)
+		echo restart not implemented
+		;;
+	reload)
+		echo reload not implemented
+		;;
+	status)
+		echo status not implemented
+		;;
+	*)
+		echo "Usage: $0 {start}"
+		exit 1
+		;;
+esac
+
+exit $?

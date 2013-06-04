@@ -1,0 +1,62 @@
+#!/usr/bin/make -f
+APPNAME := eat-host-ubuntu
+builddir:
+	#mkdir -p builddir
+
+builddir/Makefile: builddir
+	#nada
+
+build: build-stamp
+	#nada
+
+build-stamp: builddir/Makefile
+	dh_testdir	
+	touch $@
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+	#rm -rf builddir
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	#cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
+	install -d $(CURDIR)/debian/$(APPNAME)/usr/bin/
+	install -m 755 src/scripts/eat-clear-syslog.sh $(CURDIR)/debian/$(APPNAME)/usr/bin/
+	install -d $(CURDIR)/debian/$(APPNAME)/etc/rsyslog.d/
+	install -m 644 src/conf/10-eat-syslog-host-ubuntu.conf $(CURDIR)/debian/$(APPNAME)/etc/rsyslog.d/
+	install -d $(CURDIR)/debian/$(APPNAME)/root/.ssh/
+	install -m 600 src/sshkeys/id_eat_dsa $(CURDIR)/debian/$(APPNAME)/root/.ssh/
+	install -m 600 src/sshkeys/config $(CURDIR)/debian/$(APPNAME)/root/.ssh/
+	install -d $(CURDIR)/debian/$(APPNAME)/var/opt/eat/sshkey-host/
+	install -m 644 src/sshkeys/id_eat_dsa $(CURDIR)/debian/$(APPNAME)/var/opt/eat/sshkey-host/id_eat_dsa
+	install -m 644 src/sshkeys/authorized_keys2 $(CURDIR)/debian/$(APPNAME)/var/opt/eat/sshkey-host/id_eat_dsa.pub
+	install -m 644 src/sshkeys/config $(CURDIR)/debian/$(APPNAME)/var/opt/eat/sshkey-host/config
+	install -m 755 src/scripts/install-eat-key.sh $(CURDIR)/debian/$(APPNAME)/usr/bin/install-eat-key.sh
+	install -m 755 src/scripts/remove-eat-key.sh $(CURDIR)/debian/$(APPNAME)/usr/bin/remove-eat-key.sh
+
+binary-arch:
+	#nada
+
+binary-indep: install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installexamples
+	dh_installman
+	dh_link
+	dh_strip
+	dh_compress
+	#dh_fixperms
+	dh_installdeb
+	#dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure

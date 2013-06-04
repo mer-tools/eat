@@ -1,0 +1,12 @@
+Eat - enable(s) automated testing
+=================================
+
+This package tweaks the system so
+that it can be automagically tested.
+
+For example it enables ssh-key based
+ssh login so do not install this if
+you're not setting up test automation.
+
+Be careful what you eat. You have been
+warned!

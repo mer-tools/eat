@@ -1,0 +1,29 @@
+#!/bin/sh
+# Init script for eat
+# Sets up eat network environment
+#
+# chkconfig: 345 99 01
+# description: Setup networking for eat
+
+case "$1" in
+	start)
+		# prevent rDNS lookup for 192.168.2.14 by adding it in /etc/hosts
+		! [ -e /etc/hosts ] && touch /etc/hosts
+		grep -q "192.168.2.14" /etc/hosts || echo 192.168.2.14 test-control-PC >> /etc/hosts
+		;;
+	status)
+		# nada
+		;;
+	stop)
+		echo "stop not implemented"
+		;;
+	restart)
+		echo "restart not implemented"
+		;;
+	*)
+		echo "Usage $0 {start}"
+		exit 1
+		;;
+esac
+
+exit $?

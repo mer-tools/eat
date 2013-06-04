@@ -1,0 +1,37 @@
+#!/bin/sh
+#
+# chkconfig: - 99 01
+# description: Starts exection of installed test packages
+
+case "$1" in
+start|reload)
+	RESULTPATH=/var/local/testresults
+	if [ ! -d $RESULTPATH ];then
+		mkdir -p $RESULTPATH
+	fi
+
+	for i in `ls /usr/share/*-tests/tests.xml`
+	do
+		NAME=`echo $i | sed 's/\/usr\/share\///'`
+		NAME=`echo $NAME | sed 's/\/tests.xml//'`
+		testrunner-lite -f $i -o $RESULTPATH/$NAME-results.xml -v 2>&1 | tee \
+		$RESULTPATH/$NAME-testlog
+	done
+	;;
+status)
+	# nada
+	echo status not implemented
+	;;
+restart)
+	echo restart not implemented
+	;;
+stop)
+	echo stop not implemented
+	;;
+*)
+	echo $"Usage: $0 {start}"
+	exit 1
+	;;
+esac
+
+exit $?

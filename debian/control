@@ -1,0 +1,12 @@
+Source: eat
+Section: user/programming
+Priority: optional
+Maintainer: Timo Härkönen <timo.harkonen@digia.com>
+Build-Depends: debhelper (>= 5.0.0)
+Standards-Version: 3.7.3
+
+Package: eat-host-ubuntu
+Architecture: any
+Depends: rsyslog, testrunner-lite
+Description: MeeGo test automation configuration package for ubuntu hosts
+

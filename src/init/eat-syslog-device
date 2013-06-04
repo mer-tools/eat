@@ -1,0 +1,67 @@
+#!/bin/sh
+# Init script for eat
+# Sets up eat syslog device configuration
+#
+# chkconfig: 345 99 01
+# description: Device configuration for eat
+
+case "$1" in
+	start)
+		if [ -e /etc/syslog.conf ]
+		then
+			if [ -e /etc/syslog.conf.back ]; then
+				echo "eat syslog configuration already set"
+				exit 1
+			fi
+        		cp /etc/syslog.conf /etc/syslog.conf.back
+        		echo "# Added by eat" >> /etc/syslog.conf
+        		echo "*.*;auth,authpriv.none                            @192.168.2.14"\
+				>> /etc/syslog.conf
+			cp /etc/sysconfig/sysklogd /etc/sysconfig/sysklogd.back
+			sed -e 's/SYSLOGD_OPTIONS.*/SYSLOGD_OPTIONS=\"-m 0 -r\"/' \
+				/etc/sysconfig/sysklogd.back \
+				> /etc/sysconfig/sysklogd
+			#/etc/init.d/sysklogd restart
+		elif [ -e /etc/rsyslog.conf ]
+		then
+			if [ -e /etc/rsyslog.conf.back ]; then
+				echo "eat syslog configuration already set"
+				exit 1
+			fi
+			cp /etc/rsyslog.conf /etc/rsyslog.conf.back
+			echo "# Added by eat" >> /etc/rsyslog.conf
+                        echo "*.*;auth,authpriv.none                            @192.168.2.14"\
+				>> /etc/rsyslog.conf
+			#/etc/init.d/rsyslog restart
+		fi
+		;;
+	status)
+		# nada
+		;;
+	stop)
+		if [ -e /etc/syslog.conf.back ]
+		then
+        		mv /etc/syslog.conf.back /etc/syslog.conf
+			mv /etc/sysconfig/sysklogd.back /etc/sysconfig/sysklogd
+			/etc/init.d/sysklogd restart
+		fi
+
+		if [ -e /etc/rsyslog.conf.back ]
+		then
+        		mv /etc/rsyslog.conf.back /etc/rsyslog.conf
+			/etc/init.d/rsyslog restart
+		fi
+		;;
+	restart)
+		echo "restart not implemented"
+		;;
+	reload)
+		echo "Reload not implemented"
+		;;
+	*)
+		echo "Usage $0 {start|stop}"
+		exit 1
+		;;
+esac
+
+exit $?
