@@ -5,6 +5,7 @@ Release: 8.1
 Summary: Test automation enabler meta packages
 Group: Development/Tools
 License: LGPL 2.1
+URL: https://github.com/mer-tools/eat
 Source0: %{name}-%{version}.tar.gz  
 %description
 Contains dependecies and packages for enabling automated testing
