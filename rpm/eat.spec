@@ -136,6 +136,7 @@ rm -rf %{buildroot}
 
 %post
 if [ "$1" -eq 1 ]; then
+    %{_bindir}/add-oneshot 10-eat-device-key
     %{_bindir}/add-oneshot --user 10-eat-device-key
 fi
 
