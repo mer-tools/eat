@@ -1,78 +1,78 @@
-* Tue Feb 12 2013 Martin Kampas <martin.kampas@tieto.com> 0.2.0
+* Tue Feb 12 2013 Martin Kampas <martin.kampas@tieto.com> - 0.2.0
 - Auto start service for systemd user session
 
-* Sun Sep 30 2012 Carsten Munk <carsten.munk@jollamobile.com> 0.2.0
+* Sun Sep 30 2012 Carsten Munk <carsten.munk@jollamobile.com> - 0.2.0
 - Add service file for systemd user session
 
-* Wed Jun 13 2012 Carsten Munk <carsten@merproject.org> 0.2.0
+* Wed Jun 13 2012 Carsten Munk <carsten@merproject.org> - 0.2.0
 - Make the eat-host tools have sane permissions
  
-* Tue 28 Jun 2011 Timo Härkönen <timo.harkonen@digia.com> 0.2.0
+* Tue 28 Jun 2011 Timo Härkönen <timo.harkonen@digia.com> - 0.2.0
 - BMC#13406 - MeeGo test-env package required for test-automation
 - Adds confguration that enables root to connect to X and session bus
 
-* Mon 27 Jun 2011 Timo Härkönen <timo.harkonen@digia.com> 0.1.5
+* Mon 27 Jun 2011 Timo Härkönen <timo.harkonen@digia.com> - 0.1.5
 - Removed nokia-usb-networking require from %{arm} targets
 
-* Wed 15 Jun 2011 Timo Härkönen <timo.harkonen@digia.com> 0.1.5
+* Wed 15 Jun 2011 Timo Härkönen <timo.harkonen@digia.com> - 0.1.5
 - Removed chkconfig calls
 - Removed sysklogd Require
 
-* Wed 27 Apr 2011 Timo Härkönen <timo.harkonen@digia.com> 0.1.5
+* Wed 27 Apr 2011 Timo Härkönen <timo.harkonen@digia.com> - 0.1.5
 - BMC# 16769 - eat-env.sh missing from latest eat-device package
 
-* Fri 4 Feb 2011 Timo Härkönen <timo.harkonen@digia.com> 0.1.5
+* Fri 4 Feb 2011 Timo Härkönen <timo.harkonen@digia.com> - 0.1.5
 - BMC#13052 - Supports for multiple DUTs with different IPs
 - BMC#10047 - Correct environment when executing tests (by Timo Mäkimattila)
 - BMC#12756 - install-eat-key gives incorrect instructions
 - BMC#12757 - remove-eat-key does not work after first run of install-eat-key
 
 
-* Fri 14 Jan 2011 Timo Härkönen <timo.harkonen@digia.com> 0.1.4
+* Fri 14 Jan 2011 Timo Härkönen <timo.harkonen@digia.com> - 0.1.4
 - BMC#12105 - Added public ssh key to host
 - Changed ssh config to be specific to 192.168.2.15 host
 
-* Tue 28 Dec 2010 Timo Härkönen <timo.harkonen@digia.com> 0.1.3
+* Tue 28 Dec 2010 Timo Härkönen <timo.harkonen@digia.com> - 0.1.3
 - Added utility scripts for adding/removing ssh-keys for users
 
-* Wed 1 Dec 2010 Timo Härkönen <timo.harkonen@digia.com> 0.1.2
+* Wed 1 Dec 2010 Timo Härkönen <timo.harkonen@digia.com> - 0.1.2
 - Added install-eat.key.sh and remove-eat-key.sh scripts to host package (BMC#10665)
 
-* Tue 23 Nov 2010 Timo Härkönen <timo.harkonen@digia.com> 0.1.1
+* Tue 23 Nov 2010 Timo Härkönen <timo.harkonen@digia.com> - 0.1.1
 - BMC#10047 - [FEA] Correct environment when executing tests (by Timo Mäkimattila)
 
-* Wed 13 Oct 2010 Timo Härkönen <timo.harkonen@digia.com> 0.1.0
+* Wed 13 Oct 2010 Timo Härkönen <timo.harkonen@digia.com> - 0.1.0
 - Renamed host side syslog file - fixed BMC#8401
 
-* Thu 7 Oct 2010 Timo Härkönen <timo.harkonen@digia.com> 0.0.8
+* Thu 7 Oct 2010 Timo Härkönen <timo.harkonen@digia.com> - 0.0.8
 - Starting eat-selftest from inittab and moved it away from init.d - fixes BMC#7897
 - Adding StrictHostKeyChecking=no to host ssh config
 
-* Wed 6 Oct 2010 Timo Härkönen <timo.harkonen@digia.com> 0.0.7
+* Wed 6 Oct 2010 Timo Härkönen <timo.harkonen@digia.com> - 0.0.7
 - Installing ssh-key also for host machine's root user - Fixes BMC#7914
 - Added dependency to nokia-usb-networking for arm targets
 - Back up host machine's existing ssh config if exists
 - Added script to crear host side eat syslog file
 
-* Tue Oct 5 2010 Timo Härkönen <timo.harkonen@digia.com> 0.0.6
+* Tue Oct 5 2010 Timo Härkönen <timo.harkonen@digia.com> - 0.0.6
 - configure USB networking in eat-device if not configured already. Fixes BMC#7564
 
-* Wed Sep 22 2010 Timo Härkönen <timo.harkonen@digia.com> 0.0.5
+* Wed Sep 22 2010 Timo Härkönen <timo.harkonen@digia.com> - 0.0.5
 - Re-factoring packages BMC#7069
 - Checking if syslog settings are already applied in start
 
-* Fri Aug 6 2010 Timo Härkönen <timo.harkonen@digia.com> 0.0.4
+* Fri Aug 6 2010 Timo Härkönen <timo.harkonen@digia.com> - 0.0.4
 - Removed syslog restart from eat-device start
 - Added coreutils prereq to sshkey-device
 
-* Fri Aug 6 2010 Timo Härkönen <timo.harkonen@digia.com> 0.0.3
+* Fri Aug 6 2010 Timo Härkönen <timo.harkonen@digia.com> - 0.0.3
 - Syslog configuration
 - Script fixes
 - ssh-keys
 - Modified upstart scripts into init scripts
 
-* Mon Aug 2 2010 Timo Härkönen <timo.harkonen@digia.com> 0.0.2
+* Mon Aug 2 2010 Timo Härkönen <timo.harkonen@digia.com> - 0.0.2
 - Added selftest init script
 
-* Fri Jul 23 2010 Sampo Saaristo <ext-sampo.2.saaristo@nokia.com> 0.0.1
+* Fri Jul 23 2010 Sampo Saaristo <ext-sampo.2.saaristo@nokia.com> - 0.0.1
 - Initial version

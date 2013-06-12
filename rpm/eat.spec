@@ -30,7 +30,7 @@ Requires: oneshot
 Requires(pre): coreutils
 Conflicts: eat-host
 
-%{_oneshot_requires_post}
+Requires(post): /usr/bin/getent, /bin/ln, /bin/touch, /bin/sed, /bin/grep, /etc/login.defs, /usr/bin/add-oneshot
 
 %description device
 Settings for device side of test automation. Includes ssh-key for passwordless root logins
@@ -54,8 +54,8 @@ Exec=/usr/bin/eat-store-env
 X-Moblin-Priority=High
 EOF
 
-mkdir -p %{buildroot}/usr/lib/systemd/user
-cat > %{buildroot}/usr/lib/systemd/user/eat-store-env.service << EOF
+mkdir -p %{buildroot}%{_libdir}/systemd/user
+cat > %{buildroot}%{_libdir}/systemd/user/eat-store-env.service << EOF
 [Unit]
 Description=Store the environment to integrate into user session
 After=xorg.target
@@ -124,12 +124,12 @@ fi
 EOF
 chmod a+x %{buildroot}/usr/bin/eat-run-command
 
-install -d %{buildroot}/%{_oneshotdir}
-cat > %{buildroot}/%{_oneshotdir}/10-eat-device-key << EOF
+install -d %{buildroot}/%{_libdir}/oneshot.d
+cat > %{buildroot}/%{_libdir}/oneshot.d/10-eat-device-key << EOF
 #!/bin/sh
 exec /usr/bin/eat-add-device-key
 EOF
-chmod a+x %{buildroot}/%{_oneshotdir}/10-eat-device-key
+chmod a+x %{buildroot}/%{_libdir}/oneshot.d/10-eat-device-key
 
 %clean
 rm -rf %{buildroot}
@@ -152,7 +152,7 @@ fi
 %files device
 %defattr(-,root,root,-)
 /etc/xdg/autostart/eat-store-env.desktop
-%{_oneshotdir}/10-eat-device-key
+%{_libdir}/oneshot.d/10-eat-device-key
 %{_libdir}/systemd/user/eat-store-env.service
 %{_libdir}/systemd/user/nemo-mobile-session.target.wants/eat-store-env.service
 /var/opt/eat/sshkey-device
